@@ -21,9 +21,9 @@
                                         </div>
                                         <!-- /.single-product-gallery-item -->
                                         @if ($product->images)
-                                        @foreach (json_decode($product->images, true) as $image)
-                                                <div class="single-product-gallery-item" id="slide2">
-                                                    <a data-lightbox="image-1" data-title="Gallery"
+                                        @foreach (json_decode($product->images, true) as $index => $image)
+                                                <div class="single-product-gallery-item" id="slide{{$index}}">
+                                                    <a data-lightbox="image-{{$index}}" data-title="Gallery"
                                                         href="{{ asset('storage/' . $image) }}">
                                                         <img class="img-responsive" alt=""
                                                             src="{{ asset('storage/' . $image) }}"
@@ -39,10 +39,10 @@
 
                                         <div id="owl-single-product-thumbnails">
                                             @if ($product->images)
-                                                @foreach (json_decode($product->images, true) as $image)
+                                                @foreach (json_decode($product->images, true) as $index => $image)
                                                     <div class="item">
                                                         <a class="horizontal-thumb active" data-target="#owl-single-product"
-                                                            data-slide="1" href="#slide1">
+                                                            data-slide="{{$index}}" href="#slide{{$index}}">
                                                             <img class="img-responsive" width="85" alt=""
                                                                 src="{{ asset('storage/' . $image) }}"
                                                                 data-echo="{{ asset('storage/' . $image) }}" />
