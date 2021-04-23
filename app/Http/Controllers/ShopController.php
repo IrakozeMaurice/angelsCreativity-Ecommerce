@@ -35,7 +35,9 @@ class ShopController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();
-        $mightAlsoLike = Product::where('slug', '!=', $slug)->inRandomOrder()->take(12)->get();
+        $mightAlsoLike = Product::whereHas('categories', function ($query) use ($product) {
+            $query->whereIn('name', $product->categories->pluck('name'));
+        })->where('slug', '!=', $slug)->inRandomOrder()->take(8)->get();
 
         return view('product', compact('product', 'mightAlsoLike'));
     }
